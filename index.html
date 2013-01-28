@@ -45,25 +45,59 @@
 
         <section>
           <h2>What's the deal?</h2>
-          <p>Well, why roll your own when there are services like:</p>
-          <ol class="fragment">
-            <li class="_fragment">Google Analytics</li>
-            <li class="_fragment">Facebook buttons</li>
-            <li class="_fragment">Get Satisfaction</li>
-            <li class="_fragment">The Shootitlive player</li>
-          </ol>
-          <br/><br/>
+          <div class="fragment">
+            <p>Why roll your own when you can <em>embed</em> services like:</p>
+            <ol class="_fragment">
+              <li class="_fragment">Google Analytics</li>
+              <li class="_fragment">Facebook Like Buttons</li>
+              <li class="_fragment">Disqus</li>
+              <li class="_fragment">The Shootitlive player</li>
+            </ol>
+            <br/><br/>
+          </div>
           <h3 class="fragment">These are all <em>3rd party
-              widgets!</em></h3>
+              JS widgets!</em></h3>
         </section>
 
         <section>
-          <h2>Challenges</h2>
-          <p>We wanted...</p>
+          <section>
+            <p>If Alan Turing had meant for this to happen, he would've written a book on browser compatibility before even thinking about the halting problem.</p>
+          </section>
+          <section>
+            <h2>The challenges are many:</h2>
+            <ol>
+              <li>Avoid stalling the DOM</li>
+              <li>Keeping the embed code short</li>
+              <li>Not break the consumer site</li>
+              <li>Surviving the global namespace wild-west</li>
+              <li>Cross-origin communication</li>
+            </ol>
+          </section>
+
+        </section>
+
+        <section>
+
+          <h2>What I do day-to-day</h2>
+          <!--<h4><code>shootitlive.load.v1.aftonbladet.js</code>...</h4>-->
+
+          <pre><code contenteditable class="bash">$ curl -s 'http://s3-eu-west-1.amazonaws.com/shootitlive/\
+           shootitlive.load.v1.aftonbladet.js' | wc -c
+   21036</code></pre>
+
+          <ul>
+            <li>Often gets over 20M hits a month</li>
+            <li>Loads an embedded JS media player</li>
+          <ul>
+
+        </section>
+
+        <section>
+          <h2>Challenges I'll cover today</h2>
           <ol>
             <li>A short, customizable and asynchronous embed code</li>
             <li>No globals – play in our own sandbox</li>
-            <li>Using RequireJS</li>
+            <li>Use RequireJS – <em>embed-style</em></li>
             <li>Safely use jQuery, underscore, Backbone, etc.</li>
           </ol>
           <aside class="notes">
@@ -106,7 +140,7 @@ fireItUp({
               First thing people do, downsides:
               <ol>
                 <li>Stops parsing of whole site</li>
-                <li>Little flexibility</li>
+                <li>Global function name</li>
               </ol>
             </aside>
 
@@ -116,42 +150,34 @@ fireItUp({
             <h2>The long one</h2>
 
             <!--
-                        Original code:
 
-                        <div id="your-unique-identifier"></div>
-                        <script>
-                        (function() {
-                          var s = document.createElement('script'); 
-                          s.src = '//latest-cdn.com/widget/master/main.js'; 
-                          s.async = true;
-                          if(!window.widget_options) {
-                              window.widget_options = [];
-                          }
-                          window.widget_options.push({
-                              special_setting: 123, project: 13, client: 'greenfield',
-                              element_id: 'your-unique-identifier', background: '#000' 
-                          });
-                          document.body.appendChild(s);
-                        }());
-                        </script>
+            Original code:
 
-                        Encode HTML entities with: http://htmlentities.net/
-                        -->
+              <div id="your-unique-identifier"></div>
+              <script>
+              (function() {
+                var s = document.createElement('script');
+                s.src = '//your-cdn.com/widget/master/main.js';
+                s.async = true;
+                window.widget_options = (window.widget_options || []).concat([ {
+                  project: 13, client: 'greenfield', element_id: 'your-unique-identifier'
+                }];
+                document.body.appendChild(s);
+              }());
+              </script>
 
-            <pre><code contenteditable>
-&lt;div id=&quot;your-unique-identifier&quot;&gt;&lt;/div&gt;
+            Encode HTML entities with: http://htmlentities.net/
+            -->
+
+            <pre><code contenteditable class="html">&lt;div id=&quot;your-unique-identifier&quot;&gt;&lt;/div&gt;
 &lt;script&gt;
 (function() {
-  var s = document.createElement('script'); 
-  s.src = '//latest-cdn.com/widget/master/main.js'; 
+  var s = document.createElement('script');
+  s.src = '//your-cdn.com/widget/master/main.js';
   s.async = true;
-  if(!window.widget_options) {
-      window.widget_options = [];
-  }
-  window.widget_options.push({
-      special_setting: 123, project: 13, client: 'greenfield',
-      element_id: 'your-unique-identifier', background: '#000' 
-  });
+  window.widget_options = (window.widget_options || []).concat([ {
+    project: 13, client: 'greenfield', element_id: 'your-unique-identifier'
+  }];
   document.body.appendChild(s);
 }());
 &lt;/script&gt;
@@ -159,20 +185,25 @@ fireItUp({
 
             <aside class="notes">
               <ol>
-                <li>Noteworthy</li>
-                <li>... things</li>
+                <li>Still no loader file</li>
+                <li>Recurring id – users will mess it up</li>
               </ol>
             </aside>
+
           </section>
 
           <section>
-            <h2>The pretty one</h2>
-            <!--
-                       <script src="//latest-cdn.com/widget.load.v1.js?project=13&client=greenfield" async></script>
-                       -->
+            <h2>The sleak one</h2>
+            <!-- <script src="//latest-cdn.com/widget.load.v1.js?project=13&client=greenfield" async></script> -->
             <pre><code contenteditable>
 &lt;script src=&quot;//latest-cdn.com/widget.load.v1.js?project=13&amp;client=greenfield&quot; async&gt;&lt;/script&gt;
             </code></pre>
+
+            <aside class="notes">
+              <ol>
+                <li>A loader file!</li>
+              </ol>
+            </aside>
 
           </section>
 
@@ -211,6 +242,75 @@ var qs = a.search.slice(1);</code>
 
           </section>
 
+        </section>
+
+        <section>
+          <section>
+            <h2>Going RequireJS</h2>
+            <ul>
+              <li>Starting with RequireJS in the loader file</li>
+              <li>Getting everything wrapped up in a namespace</li>
+            </ul>
+
+            <aside class="notes">
+              How many have used RequireJS? Not the usual loading style.
+            </aside>
+
+          </section>
+          <section>
+            <pre>
+            <code contenteditable class="javascript">(function() {
+  var globalName = 'WidgetGlobal',
+      global = window,
+      namespace = global[globalName];
+
+  // RequireJS source
+  // Code that looks for embed tags
+
+  forEachEmbedTag(function(tag) {
+    namespace.require.config({
+      baseUrl: parameters.base_url + '/js'
+    });
+    namespace.require([ 'app' ], function(App) {
+      new App(parameters);
+    });
+  });
+
+}());</code>
+            </pre>
+
+            <aside class="notes">
+              Gettng RequireJS wrapped up in one global was tricky.
+            </aside>
+
+          </section>
+        </section>
+
+        <section>
+          <h2>grunt.js</h2>
+          <ul>
+            <li>Integrates nicely with r.js</li>
+            <li>Still immature</li>
+            <li>...yet a VIBRANT community</li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h1>Words of wisdom</h1>
+          </section>
+
+          <section>
+            <h2>Use 3rd party libraries! They're the reason JS is growing so fast.</h2>
+          </section>
+
+          <section>
+            <h2>Mind your globals – learn namespacing and why it matters</h2>
+          </section>
+
+          <section>
+            <h2>Open source everything that could be remotely useful to someone else</h2>
+          </section>
 
         </section>
 
@@ -219,10 +319,9 @@ var qs = a.search.slice(1);</code>
           <p>Paragraphs are good for sanity</p>
         </section>
 
-        <!-- identifying embed codes -->
+        <!-- Shootitlive -->
         <!-- base url trick -->
         <!-- grunt: building and linting -->
-        <!-- RequireJS -->
         <!-- the blog post -->
 
         <!--<section>-->
