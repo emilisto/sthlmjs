@@ -1,99 +1,98 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+    <title>reveal.js - The HTML Presentation Framework</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-		</script>
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+    document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+  </head>
 
-	<body>
+  <body>
 
-		<div class="reveal">
+  <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
 
-				<section>
-					<h1>Creating an embedded widget </h1>
-					<h3>Using the modern JS toolchain</h3>
-					<p>
-						<small>Presentation by <a href="http://github.com/emilisto">Emil Stenqvist</a> / <a href="http://twitter.com/svammel">@svammel</a></small>
-					</p>
-				</section>
+        <section>
+          <h1>Creating an embedded widget </h1>
+          <h3>Using the modern JS toolchain</h3>
+          <p>
+          <small>Presentation by <a href="http://github.com/emilisto">Emil Stenqvist</a> / <a href="http://twitter.com/svammel">@svammel</a></small>
+          </p>
+        </section>
 
-                <section>
-                    <h2>What's the deal?</h2>
-                    <p>Well, why roll your own when there are services like:</p>
-                    <ol class="fragment">
-                        <li class="_fragment">Google Analytics</li>
-                        <li class="_fragment">Facebook buttons</li>
-                        <li class="_fragment">Get Satisfaction</li>
-                        <li class="_fragment">The Shootitlive player</li>
-                    </ol>
-                    <br/><br/>
-                    <h3 class="fragment">These are all <em>3rd party
-                    widgets!</em></h3>
-                </section>
+        <section>
+          <h2>What's the deal?</h2>
+          <p>Well, why roll your own when there are services like:</p>
+          <ol class="fragment">
+            <li class="_fragment">Google Analytics</li>
+            <li class="_fragment">Facebook buttons</li>
+            <li class="_fragment">Get Satisfaction</li>
+            <li class="_fragment">The Shootitlive player</li>
+          </ol>
+          <br/><br/>
+          <h3 class="fragment">These are all <em>3rd party
+              widgets!</em></h3>
+        </section>
 
-                <section>
-                    <h2>Challenges</h2>
-                    <!-- FIXME: use up and down for details on these -->
-                    <ol>
-                        <li class="_fragment">Each embed needs its own settings – parameter injection</li>
-                        <li class="_fragment">Don't stop the DOM
-                        rendering – asynchronous loading</li>
-                        <li class="_fragment">Stay sane as a programmer – RequireJS modules</li>
-                        <li class="_fragment">Use your peers – 3rd party libraries</li>
-                    </ol>
-                    <aside class="notes">
-                        Coding a widget is different form writing
-                        Javascript that will be the only scripts on a
-                        site.
-                    </aside>
-                </section>
+        <section>
+          <h2>Challenges</h2>
+          <p>We wanted...</p>
+          <ol>
+            <li>A short, customizable and asynchronous embed code</li>
+            <li>No globals – play in our own sandbox</li>
+            <li>Using RequireJS</li>
+            <li>Safely use jQuery, underscore, Backbone, etc.</li>
+          </ol>
+          <aside class="notes">
+            Coding a widget is different form writing
+            Javascript that will be the only scripts on a
+            site.
+          </aside>
+        </section>
 
-                <section>
-                    <section>
-                        <h2>Embed code exhibit</h2>
-                        <p>They come in all shapes and lengths.</p>
-                    </section>
+        <section>
+          <section>
+            <h2>Embed code exhibit</h2>
+            <p>They come in all shapes and lengths.</p>
+          </section>
 
-                   <section>
-                       <h2>The short one</h2>
+          <section>
+            <h2>The short one</h2>
 
-                        <!--
-                        <script src="//awesome-service.com/init.js"></script>
-                        <script>
-                        awesomeInit({
-                          // Parameters
-                          project: 13, client: 'greenfield'
-                        });
-                        </script>
-                        -->
+            <!--
+              <script src="//awesome-service.com/init.js"></script>
+              <script>
+              awesomeInit({
+                // Parameters
+                project: 13, client: 'greenfield'
+              });
+              </script>
+              -->
 
-					    <pre><code contenteditable>
+            <pre><code contenteditable>
 &lt;script src=&quot;//awesome-service.com/init.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
 fireItUp({
@@ -101,22 +100,22 @@ fireItUp({
   project: 13, client: 'greenfield'
 });
 &lt;/script&gt;
-                        </code></pre>
+            </code></pre>
 
-                        <aside class="notes">
-                            First thing people do, downsides:
-                            <ol>
-                                <li>Stops parsing of whole site</li>
-                                <li>Little flexibility</li>
-                            </ol>
-                        </aside>
+            <aside class="notes">
+              First thing people do, downsides:
+              <ol>
+                <li>Stops parsing of whole site</li>
+                <li>Little flexibility</li>
+              </ol>
+            </aside>
 
-                    </section>
+          </section>
 
-                    <section>
-                        <h2>The long one</h2>
+          <section>
+            <h2>The long one</h2>
 
-                        <!--
+            <!--
                         Original code:
 
                         <div id="your-unique-identifier"></div>
@@ -139,7 +138,7 @@ fireItUp({
                         Encode HTML entities with: http://htmlentities.net/
                         -->
 
-					    <pre><code contenteditable>
+            <pre><code contenteditable>
 &lt;div id=&quot;your-unique-identifier&quot;&gt;&lt;/div&gt;
 &lt;script&gt;
 (function() {
@@ -156,87 +155,124 @@ fireItUp({
   document.body.appendChild(s);
 }());
 &lt;/script&gt;
-                        </code></pre>
+            </code></pre>
 
-                        <aside class="notes">
-                            <ol>
-                                <li>Noteworthy</li>
-                                <li>... things</li>
-                            </ol>
-                        </aside>
-                   </section>
+            <aside class="notes">
+              <ol>
+                <li>Noteworthy</li>
+                <li>... things</li>
+              </ol>
+            </aside>
+          </section>
 
-                   <section>
-                       <h2>The pretty one</h2>
-                       <!--
+          <section>
+            <h2>The pretty one</h2>
+            <!--
                        <script src="//latest-cdn.com/widget.load.v1.js?project=13&client=greenfield" async></script>
                        -->
-                       <pre><code contenteditable>
+            <pre><code contenteditable>
 &lt;script src=&quot;//latest-cdn.com/widget.load.v1.js?project=13&amp;client=greenfield&quot; async&gt;&lt;/script&gt;
-                       </code></pre>
+            </code></pre>
 
-                   </section>
+          </section>
 
-                </section>
+        </section>
 
-                <section>
-                    <h2>Testing</h2>
-                    <p>Paragraphs are good for sanity</p>
-                </section>
-                
-                <!-- identifying embed codes -->
-                <!-- base url trick -->
-                <!-- grunt: building and linting -->
-                <!-- RequireJS -->
+        <section>
 
-                <!--<section>-->
-                    <!--<h2></h2>-->
-                    <!--<p></p>-->
-                <!--</section>-->
+          <section>
+            <h2>How does it work?</h2>
+            <pre>
+              <code contenteditable>
+  &lt;script src=&quot;//latest-cdn.com/widget.load.v1.js?project=13&amp;client=greenfield&quot; async&gt;&lt;/script&gt;
+              </code>
+            </pre>
+          </section>
 
-                <section>
-                    <section>
-                        <h2>Then I got an email from the lead developer at Aftonbladet...</h2>
-                        <blockquote>We can't use it! You're code is from the future.</blockquote>
-                        <p>Don't we all love our bastard child Internet Explorer!</p>
-                    </section>
-                    <section>
-                        <!--
+          <section>
+            <h2>Trick 1: looking for script tags</h2>
+            <pre>
+              <code contenteditable class="javascript">var els = document.getElementsByTagName('script'),
+    // Match all script tags whose URI contains widget.load<anything>.js
+    re = /.*widget\.load\.([^/]+\.)?js/;
+
+// Iterate!</code>
+            </pre>
+
+          </section>
+
+          <section>
+            <h2>Trick 2: parsing a query string</h2>
+            <pre>
+              <code contenteditable class="javascript">var a = document.createElement('a');
+a.href = scriptElement.src;
+var qs = a.search.slice(1);</code>
+            </pre>
+
+          </section>
+
+
+        </section>
+
+        <section>
+          <h2>Testing</h2>
+          <p>Paragraphs are good for sanity</p>
+        </section>
+
+        <!-- identifying embed codes -->
+        <!-- base url trick -->
+        <!-- grunt: building and linting -->
+        <!-- RequireJS -->
+        <!-- the blog post -->
+
+        <!--<section>-->
+        <!--<h2></h2>-->
+        <!--<p></p>-->
+        <!--</section>-->
+
+        <section>
+          <section>
+            <h2>Then I got an email from the lead developer at Aftonbladet...</h2>
+            <blockquote>We can't use it! You're code is from the future.</blockquote>
+            <p>Don't we all love our bastard child Internet Explorer!</p>
+          </section>
+          <section>
+            <!--
                         <div class="shootitlive-embed" data="project=46"></div>
                         <script>(function(){var d=document,b=d.body,s=d.createElement('script');s.src='//s3-eu-west-1.amazonaws.com/shootitlive/shootitlive.load.v1.aftonbladet.js';b.insertBefore(s,b.firstChild);}())</script>
                         -->
-                       <h2>The realistic one</h2>
-                       <pre><code contenteditable>
+            <h2>The realistic one</h2>
+            <pre><code contenteditable>
 &lt;div class=&quot;shootitlive-embed&quot; data=&quot;project=46&quot;&gt;&lt;/div&gt;
 &lt;script&gt;(function(){var d=document,b=d.body,s=d.createElement('script');s.src='//s3-eu-west-1.amazonaws.com/shootitlive/shootitlive.load.v1.aftonbladet.js';b.insertBefore(s,b.firstChild);}())&lt;/script&gt;
-                       
-                       </code></pre>
+
+            </code></pre>
 
 
-                    </section>
-                </section>
+          </section>
+        </section>
 
-                <section>
-                    <h2>This is the end</h2>
-                    <ol>
-                        <li>
-                            Find this presentation on <a href="http://github.com/emilisto">github.com/emilisto/sthlmjs</a>
-                        </li>
-                        <li>
-                            A complete skeleton for an asyncronously
-                            loaded RequireJS widget can be found at
-                            <a href="http://github.com/emilisto">github.com/shootitlive/loader</a>
-                        </li>
+        <section>
+          <h2>This is the end</h2>
+          <ol>
+            <li>
+            Find this presentation on <a href="http://github.com/emilisto">github.com/emilisto/sthlmjs</a>
+            </li>
+            <li>
+            A complete skeleton for an asyncronously
+            loaded RequireJS widget can be found at
+            <a href="http://github.com/emilisto">github.com/shootitlive/loader</a>
+            </li>
 
-                    </p>
-                </section>
+            </p>
+          </section>
 
-			</div>
+        </div>
 
-		</div>
+      </div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+      <script src="lib/js/head.min.js"></script>
+      <script src="js/reveal.min.js"></script>
 
 		<script>
 
