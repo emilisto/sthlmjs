@@ -69,8 +69,8 @@ module.exports = function(grunt) {
 		},
 
 		watch: {
-			files: [ 'grunt.js', '<%= inputJS %>', '<%= inputCSS %>', 'index.html' ],
-			tasks: [ 'reload' ]
+			files: [ 'grunt.js', '<%= inputJS %>', '<%= inputCSS %>', 'index.html', '*.css' ],
+			tasks: [ 'mincss', 'reload' ]
 		},
 
         reload: {
