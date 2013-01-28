@@ -69,16 +69,37 @@ module.exports = function(grunt) {
 		},
 
 		watch: {
-			files: [ 'grunt.js', '<%= inputJS %>', '<%= inputCSS %>' ],
-			tasks: 'default'
-		}
+			files: [ 'grunt.js', '<%= inputJS %>', '<%= inputCSS %>', 'index.html' ],
+			tasks: [ 'reload' ]
+		},
 
+        reload: {
+            port: 6001,
+            proxy: {
+                host: 'localhost',
+                port: 8000 // should match server.port config
+            }       
+        },
+        server: {
+            port: 8000
+        },
+
+        open: {
+            'default': {
+                url: 'http://localhost:6001'
+            }
+        }
 	});
 	
 	// Dependencies
 	grunt.loadNpmTasks( 'grunt-contrib-mincss' );
+	grunt.loadNpmTasks( 'grunt-open' );
+	grunt.loadNpmTasks( 'grunt-reload' );
+
+    grunt.registerTask('default', [ 'server', 'reload', 'open', 'watch' ] );
 
 	// Default task
-	grunt.registerTask( 'default', [ 'lint', 'mincss', 'min' ] );
+	// grunt.registerTask( 'default', [ 'lint', 'mincss', 'min' ] );
+
 
 };
