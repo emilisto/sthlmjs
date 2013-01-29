@@ -77,11 +77,11 @@ module.exports = function(grunt) {
             port: 6001,
             proxy: {
                 host: 'localhost',
-                port: 8000 // should match server.port config
+                port: 8123 // should match server.port config
             }       
         },
         server: {
-            port: 8000
+            port: 8123
         },
 
         open: {

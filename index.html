@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
 
-    <title>reveal.js - The HTML Presentation Framework</title>
+    <title>sthlmjs - embeds with the modenr Javascript toolchain - by Emil Stenqvist</title>
 
-    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-    <meta name="author" content="Hakim El Hattab">
+    <meta name="description" content="sthlmjs - embeds with the modenr Javascript toolchain">
+    <meta name="author" content="Emil Stenqvist">
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -60,20 +60,23 @@
         </section>
 
         <section>
-          <section>
-            <p>If Alan Turing had meant for this to happen, he would've written a book on browser compatibility before even thinking about the halting problem.</p>
-          </section>
-          <section>
-            <h2>The challenges are many:</h2>
-            <ol>
-              <li>Avoid stalling the DOM</li>
-              <li>Keeping the embed code short</li>
-              <li>Not break the consumer site</li>
-              <li>Surviving the global namespace wild-west</li>
-              <li>Cross-origin communication</li>
-            </ol>
-          </section>
+          <p>If Alan Turing had meant for this to happen, he would've written a book on browser compatibility before even thinking about the halting problem.</p>
+        </section>
+        <section>
+          <h2>The challenges are many:</h2>
+          <ol>
+            <li>Not breaking the consumer site</li>
+            <li>Cross-origin communication</li>
+            <li>Surviving the global namespace wild-west</li>
+            <li>Not stalling the DOM rendering</li>
+            <li>Keeping the embed code short</li>
+          </ol>
 
+          <aside class="notes">
+            - not designed for what it's used for today<br/>
+            - the amount of hacks you resort just<br/>
+            - Emil Stenström, in audience?
+          </aside>
         </section>
 
         <section>
@@ -193,7 +196,8 @@ fireItUp({
           </section>
 
           <section>
-            <h2>The sleak one</h2>
+
+            <h2>The slick one</h2>
             <!-- <script src="//latest-cdn.com/widget.load.v1.js?project=13&client=greenfield" async></script> -->
             <pre><code contenteditable>
 &lt;script src=&quot;//latest-cdn.com/widget.load.v1.js?project=13&amp;client=greenfield&quot; async&gt;&lt;/script&gt;
@@ -218,6 +222,14 @@ fireItUp({
   &lt;script src=&quot;//latest-cdn.com/widget.load.v1.js?project=13&amp;client=greenfield&quot; async&gt;&lt;/script&gt;
               </code>
             </pre>
+
+            <aside class="notes">
+              <ol>
+                <li>A loader file!</li>
+                <li>Minimal mess</li>
+                <li>Asynchronous</li>
+              </ol>
+
           </section>
 
           <section>
@@ -241,6 +253,16 @@ var qs = a.search.slice(1);</code>
             </pre>
 
           </section>
+
+          <section>
+            <h2>Trick 3: insert widget element next to the <em>embedding</em> script tag</h2>
+            <aside class="notes">
+              <ol>
+                <li>No coupling id to keep track of</li>
+              </ol>
+            </aside>
+          </section>
+
 
         </section>
 
@@ -284,15 +306,28 @@ var qs = a.search.slice(1);</code>
             </aside>
 
           </section>
+
+          <section>
+            <h2>Why go to all this trouble?</h2>
+            <p>You often see people resorting to bad coding standards just 'cause they're writing a widget. With a RequireJS setup we can structure it like any other project</p>
+          </section>
         </section>
 
         <section>
           <h2>grunt.js</h2>
           <ul>
-            <li>Integrates nicely with r.js</li>
-            <li>Still immature</li>
-            <li>...yet a VIBRANT community</li>
+            <li>Integrates with <code>r.js</code>, the RequrieJS optimizer</li>
+            <li>A bit immature and in active development</li>
           </ul>
+        </section>
+
+        <section>
+          <h1>Demo</h1>
+          <p>Switching between minified and dev-source in a whiz, is AWESOME</p>
+
+          <aside class="notes">
+            Load http://localhost:6001, show what happens when you specify a base_url.
+          </aside>
         </section>
 
         <section>
@@ -309,29 +344,20 @@ var qs = a.search.slice(1);</code>
           </section>
 
           <section>
-            <h2>Open source everything that could be remotely useful to someone else</h2>
+            <h2>Fork projects and improve them – with Javascript it's so damn easy</h2>
+            <p><code>grunt</code> lets you specify git repos as dependencies</p>
           </section>
 
         </section>
 
-        <section>
-          <h2>Testing</h2>
-          <p>Paragraphs are good for sanity</p>
-        </section>
-
-        <!-- Shootitlive -->
         <!-- base url trick -->
-        <!-- grunt: building and linting -->
-        <!-- the blog post -->
-
-        <!--<section>-->
-        <!--<h2></h2>-->
-        <!--<p></p>-->
-        <!--</section>-->
 
         <section>
           <section>
-            <h2>Then I got an email from the lead developer at Aftonbladet...</h2>
+            <h1>Epilogue</h1>
+          </section>
+          <section>
+            <h2>I got an email from the lead developer at Aftonbladet...</h2>
             <blockquote>We can't use it! You're code is from the future.</blockquote>
             <p>Don't we all love our bastard child Internet Explorer!</p>
           </section>
@@ -349,19 +375,32 @@ var qs = a.search.slice(1);</code>
 
 
           </section>
+
+          <section>
+            <!-- <script src="//latest-cdn.com/widget.load.v1.js?project=13&client=greenfield" async></script> -->
+            <pre><code contenteditable>
+&lt;script src=&quot;//latest-cdn.com/widget.load.v1.js?project=13&amp;client=greenfield&quot; async&gt;&lt;/script&gt;
+            </code></pre>
+          </section>
+
         </section>
 
         <section>
-          <h2>This is the end</h2>
+          <h2>Thanks for listening</h2>
           <ol>
             <li>
-            Find this presentation on <a href="http://github.com/emilisto">github.com/emilisto/sthlmjs</a>
+              Find this presentation at <a href="http://github.com/emilisto">github.com/emilisto/sthlmjs</a>
             </li>
             <li>
-            A complete skeleton for an asyncronously
-            loaded RequireJS widget can be found at
-            <a href="http://github.com/emilisto">github.com/shootitlive/loader</a>
+              A complete skeleton for an asyncronously
+              loaded RequireJS widget can be found at
+              <a href="http://github.com/shootitlive/widgetloader">github.com/shootitlive/widgetloader</a>
             </li>
+            <li>
+              Blog post that inspired this talk at <a href="http://www.shootitlive.com/2012/07/developing-an-embeddable-javascript-widget/">http://shootitlive.com/blog</a>
+            </li>
+
+            <!-- the blog post -->
 
             </p>
           </section>
